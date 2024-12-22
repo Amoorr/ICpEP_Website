@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Marketplace | ICpEP</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Available Products</h1>
+    </header>
+
+    <main>
+        <section id="product-list">
+            <table class="table-products">
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                        <tr>
+                            <td>{{ product.product_name }}</td>
+                            <td>${{ product.price }}</td>
+                            <td>{{ product.quantity }}</td>
+                            <td>
+                                <a href="{% url 'order_product' product.product_id %}" class="btn-primary">Order</a>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="4">No products available.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+
+        <!-- View Cart Button -->
+        <section id="cart-navigation">
+            <a href="{% url 'view_cart' %}" class="btn-primary">View Cart</a>
+        </section>
+
+        <section id="navigation">
+            <p><a href="{% url 'student_dashboard' %}" class="btn-secondary">Back to Dashboard</a></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; {{ current_year }} ICpEP. All rights reserved.</p>
+    </footer>
+</body>
+</html>

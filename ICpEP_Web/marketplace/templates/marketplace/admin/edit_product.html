@@ -1,0 +1,33 @@
+<!-- marketplace/edit_product.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Product - {{ form.instance.product_name }} | Marketplace Admin</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Edit Product: {{ form.instance.product_name }}</h1>
+    </header>
+
+    <main>
+        <section id="edit-product-form">
+            <form method="POST" class="form-container">
+                {% csrf_token %}
+                {{ form.as_p }}
+
+                <button type="submit" class="btn-primary">Save Changes</button>
+            </form>
+
+            <p><a href="{% url 'admin_marketplace' %}" class="btn-secondary">Back to Marketplace</a></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; {{ current_year }} ICpEP. All rights reserved.</p>
+    </footer>
+</body>
+</html>

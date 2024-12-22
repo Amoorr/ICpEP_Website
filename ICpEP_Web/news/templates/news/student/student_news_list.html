@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News List</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <h1>News Articles</h1>
+    
+    <!-- Search form -->
+    <form method="get" action="{% url 'news:student_news_list' %}">
+        <input type="text" name="search" placeholder="Search by title" value="{{ request.GET.search }}">
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- List of news articles -->
+    <ul>
+        {% for news in news_list %}
+            <li>
+                <a href="{% url 'news:student_news_detail' news.article_id %}">
+                    {{ news.title }} (Published on: {{ news.publication_date }})
+                </a>
+            </li>
+        {% empty %}
+            <li>No news articles found.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Marketplace | ICpEP</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Admin Marketplace Dashboard</h1>
+    </header>
+
+    <main>
+        <section id="product-management">
+            <h2>Manage Products</h2>
+            <p><a href="{% url 'add_product' %}" class="btn-primary">Add New Product</a></p>
+
+            <table class="table-product-list">
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                    <tr>
+                        <td>{{ product.product_name }}</td>
+                        <td>${{ product.price }}</td>
+                        <td>{{ product.quantity }}</td>
+                        <td>
+                            <a href="{% url 'edit_product' product.product_id %}" class="btn-link">Edit</a> |
+                            <a href="{% url 'delete_product' product.product_id %}" class="btn-link">Delete</a> |
+                            <a href="{% url 'product_orders' product.product_id %}" class="btn-link">View Orders</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4">No products available.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+
+        <section id="order-management">
+            <h2>Manage Orders</h2>
+            <p><a href="{% url 'view_user_carts' %}" class="btn-primary">View User Carts</a></p>
+        </section>
+
+        <section id="navigation">
+            <p><a href="{% url 'admin_marketplace' %}" class="btn-secondary">Back to Marketplace Home</a></p>
+            <p><a href="{% url 'admin_dashboard' %}" class="btn-primary">Back to Admin Dashboard</a></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; {{ current_year }} ICpEP. All rights reserved.</p>
+    </footer>
+</body>
+</html>

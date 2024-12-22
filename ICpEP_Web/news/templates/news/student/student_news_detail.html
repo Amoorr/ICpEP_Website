@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ news_article.title }}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <h1>{{ news_article.title }}</h1>
+    <p><strong>Author:</strong> {{ news_article.author }}</p>
+    <p><strong>Published on:</strong> {{ news_article.publication_date }}</p>
+    <p><strong>Content:</strong></p>
+    <p>{{ news_article.content }}</p>
+
+    <h2>Photos</h2>
+    <div>
+        {% for photo in photos %}
+            <img src="{{ photo.image_path.url }}" alt="Photo for {{ news_article.title }}" style="width: 200px; height: auto; margin: 5px;">
+            <p>{{ photo.caption }}</p>
+        {% empty %}
+            <p>No photos available.</p>
+        {% endfor %}
+    </div>
+
+    <p><strong>View Count:</strong> {{ news_article.view_count }}</p>
+
+    <a href="{% url 'news:student_news_list' %}">Back to news list</a>
+</body>
+</html>

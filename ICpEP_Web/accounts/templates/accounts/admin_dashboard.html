@@ -1,0 +1,74 @@
+<body>
+    <!-- Hamburger Icon -->
+    <div class="hamburger" onclick="toggleSidebar()" aria-label="Toggle Sidebar">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <button class="close-sidebar" onclick="toggleSidebar()">&times;</button>
+        <h3>Admin Options</h3>
+        <a href="{% url 'admin_dashboard' %}" class="nav-link">View Summary</a>
+        <a href="{% url 'accounts:admin_list' %}" class="nav-link">Manage Accounts</a>
+        <a href="{% url 'event_calendar:admin_calendar' %}" class="nav-link">Manage Events</a>
+        <a href="{% url 'marketplace:admin_marketplace' %}" class="nav-link">Manage Marketplace</a>
+        <a href="{% url 'news:admin_news' %}" class="nav-link">Manage News</a>
+        <a href="{% url 'accounts:logout' %}" >Logout</a>
+    </div>
+
+    <!-- Content Area -->
+    <div class="content" id="content-area">
+        <h1>Admin Dashboard</h1>
+        <p>Welcome to the admin dashboard! Select an option from the sidebar to view details here.</p>
+
+        <!-- Placeholder Summary Cards -->
+        <div class="summary">
+            <!-- Summary cards go here -->
+        </div> 
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 ICpEP. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Sidebar toggle
+        function toggleSidebar() {
+            const sidebar = document.getElementById("sidebar");
+            const content = document.getElementById("content-area");
+            const hamburger = document.querySelector(".hamburger");
+
+            sidebar.classList.toggle("active");
+            content.classList.toggle("shift");
+            hamburger.classList.toggle("active");
+        }
+
+        $(document).ready(function () {
+            // For sidebar links
+            $(".nav-link").on("click", function (e) {
+                e.preventDefault();  // Prevent default link behavior
+
+                const url = $(this).attr("href");  // Get target URL
+                const contentArea = $("#content-area"); // Target content area
+
+                // AJAX request to load content dynamically
+                $.ajax({
+                    url: url,
+                    type: "GET",
+                    success: function (response) {
+                        contentArea.html(response); // Update the content area
+                        toggleSidebar(); // Close the sidebar after loading content
+                    },
+                    error: function () {
+                        contentArea.html("<p>Failed to load content. Please try again later.</p>");
+                    }
+                });
+            });
+        });
+    </script>
+</body>

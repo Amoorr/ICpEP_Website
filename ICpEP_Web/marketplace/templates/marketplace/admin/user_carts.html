@@ -1,0 +1,55 @@
+<!-- marketplace/user_carts.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Carts | Marketplace Admin</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>User Carts</h1>
+    </header>
+
+    <main>
+        <section id="cart-overview">
+            <table class="table-cart">
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Order Status</th>
+                        <th>Order Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cart in carts %}
+                        <tr>
+                            <td>{{ cart.user.last_name }}</td>
+                            <td>{{ cart.product.product_name }}</td>
+                            <td>{{ cart.quantity }}</td>
+                            <td>{{ cart.order_status }}</td>
+                            <td>{{ cart.order_date }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="5">No items in user carts.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+
+        <section id="navigation">
+            <p><a href="{% url 'admin_marketplace' %}" class="btn-secondary">Back to Marketplace</a></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; {{ current_year }} ICpEP. All rights reserved.</p>
+    </footer>
+</body>
+</html>

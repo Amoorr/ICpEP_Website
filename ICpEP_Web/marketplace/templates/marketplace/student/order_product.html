@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order {{ product.product_name }} | ICpEP Marketplace</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Order {{ product.product_name }}</h1>
+        <p>Price: ${{ product.price }}</p>
+        <p>Available Quantity: {{ product.quantity }}</p>
+    </header>
+
+    <main>
+        <section id="order-form">
+            <form method="POST" class="form-container">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn-primary">Add to Cart</button>
+            </form>
+        </section>
+
+        <section id="navigation">
+            <p><a href="{% url 'student_marketplace' %}" class="btn-secondary">Back to Marketplace</a></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; {{ current_year }} ICpEP. All rights reserved.</p>
+    </footer>
+</body>
+</html>
